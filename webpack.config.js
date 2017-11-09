@@ -25,6 +25,9 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   plugins: [
     new CopyWebpackPlugin([
       { from: 'src/index.html', to: 'index.html' }

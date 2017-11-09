@@ -1,8 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+
 import 'bulma/bulma.sass'
 import './style.scss'
+
+import Navbar from './navbar'
 
 class Clock extends React.Component {
   constructor (props) {
@@ -45,12 +48,9 @@ class Toggle extends React.Component {
   constructor (props) {
     super(props)
     this.state = {isToggleOn: true}
-
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick () {
+  handleClick = () => {
     this.setState(prevState => ({
       isToggleOn: !prevState.isToggleOn
     }))
@@ -65,8 +65,15 @@ class Toggle extends React.Component {
   }
 }
 
-const element = <div><Clock title='world'/><Toggle/></div>
+const app = (
+  <div>
+    <Navbar/>
+    <Clock title='world'/>
+    <Toggle/>
+  </div>
+)
+
 ReactDOM.render(
-  element,
+  app,
   document.getElementById('root')
 )
