@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+import Toggle from './toggle'
 
 import 'bulma/bulma.sass'
 import './style.scss'
@@ -42,27 +43,6 @@ class Clock extends React.Component {
 
 Clock.propTypes = {
   title: PropTypes.string.isRequired
-}
-
-class Toggle extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {isToggleOn: true}
-  }
-
-  handleClick = () => {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }))
-  }
-
-  render () {
-    return (
-      <a className="button is-primary" onClick={this.handleClick}>
-        {this.state.isToggleOn ? 'ON' : 'OFF'}
-      </a>
-    )
-  }
 }
 
 const app = (
