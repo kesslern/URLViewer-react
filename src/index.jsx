@@ -1,55 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
-import Toggle from './toggle'
 
 import 'bulma/bulma.sass'
 import './style.scss'
 
-import Navbar from './navbar'
-
-class Clock extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {date: new Date()}
-  }
-
-  componentDidMount () {
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    )
-  }
-
-  componentWillUnmount () {
-    clearInterval(this.timerID)
-  }
-
-  tick () {
-    this.setState({
-      date: new Date()
-    })
-  }
-
-  render () {
-    return (
-      <div>
-        <h1>Hello, {this.props.title}</h1>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-      </div>
-    )
-  }
-}
-
-Clock.propTypes = {
-  title: PropTypes.string.isRequired
-}
+import URLInput from './URLInput'
+import FilterInput from './FilterInput.jsx'
 
 const app = (
-  <div>
-    <Navbar/>
-    <Clock title='world'/>
-    <Toggle/>
+  <div id='app' className='container'>
+    <div><URLInput/></div>
+    <div className='filter-inputs'><FilterInput/><FilterInput/></div>
   </div>
 )
 
