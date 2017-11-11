@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import URL from 'url-parse'
 
 import 'bulma/bulma.sass'
 import './style.scss'
@@ -9,6 +10,7 @@ import FilterInput from './FilterInput.jsx'
 
 function log (it) {
   console.log(it.target.value)
+  console.log(new URL(it.target.value))
 }
 
 const app = (
