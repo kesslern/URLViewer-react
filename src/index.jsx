@@ -8,26 +8,41 @@ import './style.scss'
 import URLInput from './URLInput'
 import FilterInput from './FilterInput.jsx'
 
-function log (it) {
-  const url = new URL(it.target.value)
-  const queryParams = parse(url.query)
-  console.log(queryParams)
+class App extends React.Component {
+  constructor () {
+    super()
+    this.state = {}
+  }
+
+  parse = (query) => query
+    .substr(1)
+    .split('&')
+    .map(x => x.split('='))
+    .map(([x, y]) => [decodeURIComponent(x), decodeURIComponent(y)])
+
+  log = (it) => {
+    const url = new URL(it.target.value)
+    const queryParams = this.parse(url.query)
+    this.setState(prevState => ({
+      queryParams
+    }))
+  }
+
+  render () {
+    return (
+      <div id='app' className='container'>
+        <div><URLInput onChange={this.log}/></div>
+        <div className='filter-inputs'>
+          <FilterInput/>
+          <FilterInput/>
+          {this.state.queryParams || 'No query params'}
+        </div>
+      </div>
+    )
+  }
 }
 
-const parse = (query) => query
-  .substr(1)
-  .split('&')
-  .map(x => x.split('='))
-  .map(([x, y]) => [decodeURIComponent(x), decodeURIComponent(y)])
-
-const app = (
-  <div id='app' className='container'>
-    <div><URLInput onChange={log}/></div>
-    <div className='filter-inputs'><FilterInput/><FilterInput/></div>
-  </div>
-)
-
 ReactDOM.render(
-  app,
+  <App/>,
   document.getElementById('root')
 )
