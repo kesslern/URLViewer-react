@@ -39,7 +39,13 @@ class App extends React.Component {
           {!this.state.queryParams
             ? 'No query params'
             : <ul>
-              {this.state.queryParams.map((param) => (<QueryParam key={param} queryParam={param}/>))}
+              {this.state.queryParams.map((param) => (
+                <QueryParam
+                  key={param}
+                  paramKey={param[0]}
+                  paramValue={param[1]}
+                />
+              ))}
             </ul>
           }
         </div>

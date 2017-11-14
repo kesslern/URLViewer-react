@@ -5,24 +5,25 @@ class QueryParam extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      queryKey: props.queryParam[0],
-      queryValue: props.queryParam[1]
+      key: props.paramKey,
+      value: props.paramValue
     }
   }
 
   static propTypes = {
-    queryParam: PropTypes.array
+    paramKey: PropTypes.string,
+    paramValue: PropTypes.string
   }
 
   onKeyChange = (event) => {
     this.setState({
-      queryKey: event.target.value
+      key: event.target.value
     })
   }
 
   onValueChange = (event) => {
     this.setState({
-      queryValue: event.target.value
+      value: event.target.value
     })
   }
 
@@ -31,12 +32,12 @@ class QueryParam extends React.Component {
       <li>
         <input
           className='key-input column'
-          value={this.state.queryKey}
+          value={this.state.key}
           onChange={this.onKeyChange}
         />
         <input
           className='value-input column'
-          value={this.state.queryValue}
+          value={this.state.value}
           onChange={this.onValueChange}
         />
       </li>
