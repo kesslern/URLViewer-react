@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import URL from 'url-parse'
+import QueryParam from './queryParam'
 
 import 'bulma/bulma.sass'
 import './style.scss'
@@ -38,7 +39,7 @@ class App extends React.Component {
           {!this.state.queryParams
             ? 'No query params'
             : this.state.queryParams.map((param) =>
-              <li key={param}>{param}</li>)}
+              <QueryParam key={param} queryParam={param}/>)}
         </div>
       </div>
     )
