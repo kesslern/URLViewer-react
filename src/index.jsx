@@ -9,9 +9,16 @@ import URLInput from './URLInput'
 import FilterInput from './FilterInput.jsx'
 
 function log (it) {
-  console.log(it.target.value)
-  console.log(new URL(it.target.value))
+  const url = new URL(it.target.value)
+  const queryParams = parse(url.query)
+  console.log(queryParams)
 }
+
+const parse = (query) => query
+  .substr(1)
+  .split('&')
+  .map(x => x.split('='))
+  .map(([x, y]) => [decodeURIComponent(x), decodeURIComponent(y)])
 
 const app = (
   <div id='app' className='container'>
