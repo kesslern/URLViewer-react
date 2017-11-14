@@ -35,7 +35,10 @@ class App extends React.Component {
         <div className='filter-inputs'>
           <FilterInput/>
           <FilterInput/>
-          {this.state.queryParams || 'No query params'}
+          {!this.state.queryParams
+            ? 'No query params'
+            : this.state.queryParams.map((param) =>
+              <li key={param}>{param}</li>)}
         </div>
       </div>
     )
