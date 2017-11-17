@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 
 class URLInput extends React.Component {
   static propTypes = {
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    url: PropTypes.string
+  }
+
+  onChange = (event) => {
+    this.props.onChange(event.target.value)
   }
 
   render () {
@@ -12,7 +17,8 @@ class URLInput extends React.Component {
         className='input'
         type='text'
         placeholder='Enter URL'
-        onChange={this.props.onChange}/>
+        onChange={this.onChange}
+        value={this.props.url}/>
     )
   }
 }
