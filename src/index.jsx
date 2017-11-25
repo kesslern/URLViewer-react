@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import URL from 'url-parse'
 import QueryParam from './queryParam'
 
 import 'bulma/bulma.sass'
@@ -13,37 +12,46 @@ class App extends React.Component {
   constructor () {
     super()
     this.state = {
-      url: new URL()
+      urlString: '',
+      queryParamList: []
     }
   }
 
-  parse = (query) => query
+  parseQuery = (query) => query
     .substr(1)
     .split('&')
     .map(x => x.split('='))
     .map(([x, y]) => [decodeURIComponent(x), decodeURIComponent(y)])
 
+  matchRegex = (regex, str, defaultValue) => {
+    const result = regex.exec(str)
+    if (result) {
+      return result[0]
+    } else {
+      return defaultValue
+    }
+  }
+
   onUrlChange = (urlString) => {
-    const url = new URL(urlString)
-    const queryParams = this.parse(url.query)
+    const queryParamRegex = /(\?\S+)(?:#\S)?$/
+    const queryParamString = this.matchRegex(queryParamRegex, urlString, '?')
+    const queryParamList = this.parseQuery(queryParamString)
+
     this.setState(prevState => ({
-      queryParams,
-      url,
-      urlString
+      urlString,
+      queryParamList
     }))
   }
 
   onParamChange = (index, key, value) => {
     this.setState((prev, props) => {
-      let queryParams = prev.queryParams
-      queryParams[index] = [key, value]
-      let url = prev.url
-      url.query = '?' + queryParams.map(it => it[0] + '=' + it[1]).join('&')
+      let queryParamList = prev.queryParamList
+      queryParamList[index] = [key, value]
+      const urlString = '?' + queryParamList.map(it => it[0] + '=' + it[1]).join('&')
 
       return {
-        queryParams,
-        url,
-        urlString: url.toString()
+        urlString,
+        queryParamList
       }
     })
   }
@@ -60,10 +68,10 @@ class App extends React.Component {
         <div className='filter-inputs'>
           <FilterInput/>
           <FilterInput/>
-          {!this.state.queryParams
+          {!this.state.queryParamList
             ? 'No query params'
             : <ul>
-              {this.state.queryParams.map((param, index) => (
+              {this.state.queryParamList.map((param, index) => (
                 <QueryParam
                   key={index}
                   paramIndex={index}

@@ -32,5 +32,6 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: 'src/index.html', to: 'index.html' }
     ])
-  ]
+  ],
+  devtool: 'eval-source-map'
 }
