@@ -3,6 +3,8 @@
   "plugins": ["react"],
   "parser": "babel-eslint",
   "parserOptions": {
-    "plugins": ["transform-class-properties"]
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true    
+    }
   }
 }

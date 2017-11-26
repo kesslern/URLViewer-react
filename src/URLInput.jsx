@@ -1,14 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
+const mapStateToProps = (state) => ({
+  url: state.url
+})
 
 class URLInput extends React.Component {
   static propTypes = {
-    onChange: PropTypes.func,
+    dispatch: PropTypes.func,
     url: PropTypes.string
   }
 
   onChange = (event) => {
-    this.props.onChange(event.target.value)
+    this.props.dispatch({ type: 'URL INPUT', url: event.target.value })
   }
 
   render () {
@@ -23,4 +28,4 @@ class URLInput extends React.Component {
   }
 }
 
-export default URLInput
+export default connect(mapStateToProps)(URLInput)

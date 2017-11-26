@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import QueryParam from './queryParam'
+// import QueryParam from './queryParam'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
 import 'bulma/bulma.sass'
 import './style.scss'
@@ -9,13 +11,18 @@ import URLInput from './URLInput'
 import FilterInput from './FilterInput.jsx'
 
 class App extends React.Component {
-  constructor () {
-    super()
-    this.state = {
-      urlString: '',
-      queryParamList: []
+  reducer = (state = {url: ''}, action) => {
+    if (action.type === 'URL INPUT') {
+      return {
+        ...state,
+        url: action.url
+      }
+    } else {
+      return { ...state }
     }
   }
+
+  store = createStore(this.reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
   parseQuery = (query) => query
     .substr(1)
@@ -32,58 +39,49 @@ class App extends React.Component {
     }
   }
 
+  /*
   onUrlChange = (urlString) => {
     const queryParamRegex = /(\?\S+)(?:#\S)?$/
     const queryParamString = this.matchRegex(queryParamRegex, urlString, '?')
     const queryParamList = this.parseQuery(queryParamString)
-
-    this.setState(prevState => ({
-      urlString,
-      queryParamList
-    }))
   }
+  */
 
+  /*
   onParamChange = (index, key, value) => {
-    this.setState((prev, props) => {
-      let queryParamList = prev.queryParamList
-      queryParamList[index] = [key, value]
-      const urlString = '?' + queryParamList.map(it => it[0] + '=' + it[1]).join('&')
-
-      return {
-        urlString,
-        queryParamList
-      }
-    })
+    let queryParamList = prev.queryParamList
+    queryParamList[index] = [key, value]
+    const urlString = '?' + queryParamList.map(it => it[0] + '=' + it[1]).join('&')
   }
+  */
 
   render () {
     return (
-      <div id='app' className='container'>
-        <div>
-          <URLInput
-            onChange={this.onUrlChange}
-            url={this.state.urlString}
-          />
+      <Provider store={this.store}>
+        <div id='app' className='container'>
+          <div>
+            <URLInput/>
+          </div>
+          <div className='filter-inputs'>
+            <FilterInput/>
+            <FilterInput/>
+            {/* !this.state.queryParamList
+              ? 'No query params'
+              : <ul>
+                {this.state.queryParamList.map((param, index) => (
+                  <QueryParam
+                    key={index}
+                    paramIndex={index}
+                    paramKey={param[0]}
+                    paramValue={param[1]}
+                    paramChange={this.onParamChange}
+                  />
+                ))} 
+              </ul>
+              */}
+          </div>
         </div>
-        <div className='filter-inputs'>
-          <FilterInput/>
-          <FilterInput/>
-          {!this.state.queryParamList
-            ? 'No query params'
-            : <ul>
-              {this.state.queryParamList.map((param, index) => (
-                <QueryParam
-                  key={index}
-                  paramIndex={index}
-                  paramKey={param[0]}
-                  paramValue={param[1]}
-                  paramChange={this.onParamChange}
-                />
-              ))}
-            </ul>
-          }
-        </div>
-      </div>
+      </Provider>
     )
   }
 }
