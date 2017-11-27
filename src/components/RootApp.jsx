@@ -1,11 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import URLInput from './URLInput'
-import QueryParam from './queryParam'
+import QueryParam from './QueryParam'
 import { connect } from 'react-redux'
-
-import 'bulma/bulma.sass'
-import './style.scss'
 
 const mapStateToProps = (state) => ({
   queryParams: state.queryParams
