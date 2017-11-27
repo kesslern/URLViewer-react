@@ -1,39 +1,48 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
+const mapStateToProps = (state) => ({
+  queryParams: state.queryParams
+})
 
 class QueryParam extends React.Component {
   static propTypes = {
-    paramKey: PropTypes.string,
-    paramValue: PropTypes.string,
-    paramIndex: PropTypes.number,
-    paramChange: PropTypes.func
+    dispatch: PropTypes.func,
+    queryParams: PropTypes.array,
+    index: PropTypes.number
   }
 
   onKeyChange = (event) => {
-    this.props.paramChange(
-      this.props.paramIndex,
-      event.target.value,
-      this.props.paramValue)
+    this.props.dispatch({
+      type: 'PARAM INPUT',
+      index: this.props.index,
+      key: event.target.value,
+      value: this.props.queryParams[this.props.index][1]
+    })
   }
 
   onValueChange = (event) => {
-    this.props.paramChange(
-      this.props.paramIndex,
-      this.props.paramKey,
-      event.target.value)
+    this.props.dispatch({
+      type: 'PARAM INPUT',
+      index: this.props.index,
+      key: this.props.queryParams[this.props.index][0],
+      value: event.target.value
+    })
   }
 
   render () {
+    const { queryParams, index } = this.props
     return (
-      <li>
+      <li className='columns'>
         <input
-          className='key-input column'
-          value={this.props.paramKey}
+          className='key-input input column'
+          value={queryParams[index][0]}
           onChange={this.onKeyChange}
         />
         <input
-          className='value-input column'
-          value={this.props.paramValue}
+          className='value-input input column'
+          value={queryParams[index][1]}
           onChange={this.onValueChange}
         />
       </li>
@@ -41,4 +50,4 @@ class QueryParam extends React.Component {
   }
 }
 
-export default QueryParam
+export default connect(mapStateToProps)(QueryParam)
