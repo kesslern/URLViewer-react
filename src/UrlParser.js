@@ -1,31 +1,36 @@
-function matchRegex (regex, str, defaultValue) {
-  const result = regex.exec(str)
-  if (result) {
-    return result[0]
-  } else {
-    return defaultValue
-  }
+const regex = {
+  host: /\S+(?=\?|^)/,
+  queryString: /(\?\S+)(?:#\S)?$/
 }
 
 function parseQueryParams (urlString) {
-  const queryParamRegex = /(\?\S+)(?:#\S)?$/
-  const queryParamString = matchRegex(queryParamRegex, urlString, '?')
-  return queryParamString
-    .substr(1)
-    .split('&')
-    .map(x => (x.split('=')))
-    .map(([x, y]) => [decodeURIComponent(x), decodeURIComponent(y || '')])
+  const regexResult = regex.queryString.exec(urlString)
+  if (regexResult) {
+    return regexResult[0]
+      .substr(1)
+      .split('&')
+      .map(x => (x.split('=')))
+      .map(([x, y]) => [decodeURIComponent(x), decodeURIComponent(y || '')])
+  } else {
+    return undefined
+  }
+}
+
+function parseHost (urlString) {
+  const regexResult = regex.host.exec(urlString)
+  return regexResult ? regexResult[0] : ''
 }
 
 class UrlParser {
   static parseUrl (urlString) {
     return {
+      host: parseHost(urlString),
       queryParams: parseQueryParams(urlString)
     }
   }
 
   static toString (parsedUrl) {
-    return '?' + parsedUrl.queryParams.map(it => it[0] + '=' + it[1]).join('&')
+    return parsedUrl.host + '?' + parsedUrl.queryParams.map(it => it[0] + '=' + it[1]).join('&')
   }
 }
 
