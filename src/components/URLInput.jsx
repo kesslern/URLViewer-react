@@ -6,14 +6,19 @@ const mapStateToProps = (state) => ({
   url: state.url
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  urlChange: (event) => {
+    dispatch({
+      type: 'URL INPUT',
+      url: event.target.value
+    })
+  }
+})
+
 class URLInput extends React.Component {
   static propTypes = {
-    dispatch: PropTypes.func,
+    urlChange: PropTypes.func,
     url: PropTypes.string
-  }
-
-  onChange = (event) => {
-    this.props.dispatch({ type: 'URL INPUT', url: event.target.value })
   }
 
   render () {
@@ -22,10 +27,10 @@ class URLInput extends React.Component {
         className='input'
         type='text'
         placeholder='Enter URL'
-        onChange={this.onChange}
+        onChange={this.props.urlChange}
         value={this.props.url}/>
     )
   }
 }
 
-export default connect(mapStateToProps)(URLInput)
+export default connect(mapStateToProps, mapDispatchToProps)(URLInput)
