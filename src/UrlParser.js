@@ -25,7 +25,7 @@ class UrlParser {
 
   static toString (parsedUrl) {
     return parsedUrl.protocol +
-      parsedUrl.host + parsedUrl.path + '?' + parsedUrl.queryParams.map(it => it[0] + '=' + it[1]).join('&') + parsedUrl.anchor
+      parsedUrl.host + parsedUrl.path + '?' + parsedUrl.queryParams.map(it => encodeURIComponent(it[0]) + '=' + encodeURIComponent(it[1])).join('&') + parsedUrl.anchor
   }
 }
 
