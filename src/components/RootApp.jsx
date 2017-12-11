@@ -20,7 +20,7 @@ class RootApp extends React.Component {
           <URLInput/>
         </div>
         <div>
-          {!this.props.queryParams
+          {!this.props.queryParams.length
             ? 'No query params'
             : <ul id='query-params'>
               {this.props.queryParams.map((param, index) => (

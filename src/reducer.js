@@ -18,7 +18,14 @@ const reducers = {
   }
 }
 
-function reducer (state = {url: ''}, action) {
+function reducer (state = {
+  url: '',
+  queryParams: [],
+  protocol: '',
+  host: '',
+  path: '',
+  anchor: ''
+}, action) {
   const defaultFn = () => ({ ...state })
   const maybeFn = reducers[action.type]
   return (maybeFn || defaultFn)(state, action)
