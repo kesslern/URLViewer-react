@@ -16,8 +16,8 @@ class RootApp extends React.Component {
   }
 
   render () {
-    const editArea = this.props.url
-      ? <div>
+    const editArea =
+      <div id='edit-area' className={!this.props.url ? 'hidden' : null}>
         {!this.props.queryParams
           ? 'No query params'
           : <ul id='query-params'>
@@ -29,11 +29,11 @@ class RootApp extends React.Component {
             ))}
           </ul>
         }
-      </div> : null
+      </div>
 
     return (
       <div id='app' className='container'>
-        <div>
+        <div id='url-input' className={!this.props.url ? 'empty' : null}>
           <URLInput/>
         </div>
         {editArea}
@@ -41,5 +41,4 @@ class RootApp extends React.Component {
     )
   }
 }
-
 export default connect(mapStateToProps)(RootApp)
