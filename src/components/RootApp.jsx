@@ -5,36 +5,40 @@ import QueryParam from './QueryParam'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => ({
-  queryParams: state.queryParams
+  queryParams: state.queryParams,
+  url: state.url
 })
 
 class RootApp extends React.Component {
   static propTypes = {
-    queryParams: PropTypes.array
+    queryParams: PropTypes.array,
+    url: PropTypes.string
   }
 
   render () {
+    const editArea =
+      <div id='edit-area' className={!this.props.url ? 'hidden' : null}>
+        {!this.props.queryParams
+          ? 'No query params'
+          : <ul id='query-params'>
+            {this.props.queryParams.map((param, index) => (
+              <QueryParam
+                key={index}
+                index={index}
+              />
+            ))}
+          </ul>
+        }
+      </div>
+
     return (
       <div id='app' className='container'>
-        <div>
+        <div id='url-input' className={!this.props.url ? 'empty' : null}>
           <URLInput/>
         </div>
-        <div>
-          {!this.props.queryParams.length
-            ? 'No query params'
-            : <ul id='query-params'>
-              {this.props.queryParams.map((param, index) => (
-                <QueryParam
-                  key={index}
-                  index={index}
-                />
-              ))}
-            </ul>
-          }
-        </div>
+        {editArea}
       </div>
     )
   }
 }
-
 export default connect(mapStateToProps)(RootApp)
