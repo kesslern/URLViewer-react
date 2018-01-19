@@ -28,9 +28,8 @@ class RootApp extends React.Component {
     const editArea =
       <div id='edit-area' className={!this.props.url ? 'hidden' : null}>
         <div>
-          {this.props.queryParams.length === 0
-            ? 'No query params'
-            : <ul id='query-params'>
+          {this.props.queryParams.length !== 0
+            ? <ul id='query-params'>
               {this.props.queryParams.map((param, index) => (
                 <QueryParam
                   key={index}
@@ -38,6 +37,7 @@ class RootApp extends React.Component {
                 />
               ))}
             </ul>
+            : null
           }
         </div>
         <div>
