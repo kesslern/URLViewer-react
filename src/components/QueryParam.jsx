@@ -31,10 +31,21 @@ class QueryParam extends React.Component {
     })
   }
 
+  onRemove = (event) => {
+    this.props.dispatch({
+      type: 'PARAM REMOVE',
+      index: this.props.index
+    })
+  }
+
   render () {
     const { queryParams, index } = this.props
     return (
       <li className='columns'>
+        <button
+          onClick={this.onRemove}>
+          Remove
+        </button>
         <input
           className='key-input input column'
           value={queryParams[index][0]}

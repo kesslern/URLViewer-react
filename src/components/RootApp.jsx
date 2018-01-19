@@ -18,7 +18,7 @@ class RootApp extends React.Component {
   render () {
     const editArea =
       <div id='edit-area' className={!this.props.url ? 'hidden' : null}>
-        {!this.props.queryParams
+        {this.props.queryParams.length === 0
           ? 'No query params'
           : <ul id='query-params'>
             {this.props.queryParams.map((param, index) => (

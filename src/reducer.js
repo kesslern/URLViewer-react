@@ -15,6 +15,16 @@ const reducers = {
       url,
       queryParams
     }
+  },
+  'PARAM REMOVE': (state, action) => {
+    const queryParams = state.queryParams.slice()
+    queryParams.splice(action.index, 1)
+    const url = UrlParser.toString({...state, queryParams})
+    return {
+      ...state,
+      queryParams,
+      url
+    }
   }
 }
 
