@@ -1,5 +1,5 @@
 const regex = {
-  url: /([a-zA-Z]+:\/\/)?([a-zA-Z0-9.-]+)?(\/[/a-zA-Z0-9.-]+)?(\?[a-zA-Z0-9-&-=%]+)?(#[a-zA-Z0-9-]+)?/
+  url: /([a-zA-Z]+:\/\/)?([a-zA-Z0-9.-]+)?(\/[/a-zA-Z0-9.-]+)?(\?[a-zA-Z0-9-&-=%()!_]+)?(#.+)?/
 }
 
 function parseQueryParamString (queryParams) {
