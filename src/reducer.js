@@ -25,6 +25,14 @@ const reducers = {
       queryParams,
       url
     }
+  },
+  'ADD QUERY PARAM': (state, action) => {
+    const queryParams = state.queryParams.slice()
+    queryParams.push(['', ''])
+    return {
+      ...state,
+      queryParams
+    }
   }
 }
 

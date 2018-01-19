@@ -9,26 +9,40 @@ const mapStateToProps = (state) => ({
   url: state.url
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  addQueryParam: (event) => {
+    dispatch({
+      type: 'ADD QUERY PARAM'
+    })
+  }
+})
+
 class RootApp extends React.Component {
   static propTypes = {
     queryParams: PropTypes.array,
+    addQueryParam: PropTypes.func,
     url: PropTypes.string
   }
 
   render () {
     const editArea =
       <div id='edit-area' className={!this.props.url ? 'hidden' : null}>
-        {this.props.queryParams.length === 0
-          ? 'No query params'
-          : <ul id='query-params'>
-            {this.props.queryParams.map((param, index) => (
-              <QueryParam
-                key={index}
-                index={index}
-              />
-            ))}
-          </ul>
-        }
+        <div>
+          {this.props.queryParams.length === 0
+            ? 'No query params'
+            : <ul id='query-params'>
+              {this.props.queryParams.map((param, index) => (
+                <QueryParam
+                  key={index}
+                  index={index}
+                />
+              ))}
+            </ul>
+          }
+        </div>
+        <div>
+          <button onClick={this.props.addQueryParam}>Add query param</button>
+        </div>
       </div>
 
     return (
@@ -41,4 +55,4 @@ class RootApp extends React.Component {
     )
   }
 }
-export default connect(mapStateToProps)(RootApp)
+export default connect(mapStateToProps, mapDispatchToProps)(RootApp)

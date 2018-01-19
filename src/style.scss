@@ -19,12 +19,12 @@ body {
   }
 }
 
-ul {
-  list-style-type: none;
+.columns,.columns:last-child, .columns:not(:last-child) {
+  margin: 0;
 }
 
-#query-params {
-  margin-top: 3em;
+ul {
+  list-style-type: none;
 }
 
 #url-input {
