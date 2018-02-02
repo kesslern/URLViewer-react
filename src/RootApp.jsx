@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-import RootApp from './components/RootApp'
+import UrlViewer from './components/UrlViewer'
 import reducer from './reducer'
 
 import 'bulma/bulma.sass'
@@ -16,7 +16,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <RootApp/>
+    <UrlViewer/>
   </Provider>,
   document.getElementById('root')
 )

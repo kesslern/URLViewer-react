@@ -6,59 +6,59 @@ const mapStateToProps = (state) => ({
   queryParams: state.queryParams
 })
 
-class QueryParam extends React.Component {
-  static propTypes = {
-    dispatch: PropTypes.func,
-    queryParams: PropTypes.array,
-    index: PropTypes.number
-  }
-
-  onKeyChange = (event) => {
-    this.props.dispatch({
-      type: 'PARAM INPUT',
-      index: this.props.index,
-      key: event.target.value,
-      value: this.props.queryParams[this.props.index][1]
+const mapDispatchToProps = (dispatch) => ({
+  onKeyChange: (event) => {
+    dispatch({
+      type: 'SET PARAM KEY',
+      index: event.target.parentNode.getAttribute('data-index'),
+      key: event.target.value
     })
-  }
-
-  onValueChange = (event) => {
-    this.props.dispatch({
-      type: 'PARAM INPUT',
-      index: this.props.index,
-      key: this.props.queryParams[this.props.index][0],
+  },
+  onValueChange: (event) => {
+    dispatch({
+      type: 'SET PARAM VALUE',
+      index: event.target.parentNode.getAttribute('data-index'),
       value: event.target.value
     })
-  }
-
-  onRemove = (event) => {
-    this.props.dispatch({
+  },
+  onRemove: (event) => {
+    dispatch({
       type: 'PARAM REMOVE',
-      index: this.props.index
+      index: event.target.parentNode.getAttribute('data-index')
     })
+  }
+})
+
+class QueryParam extends React.Component {
+  static propTypes = {
+    queryParams: PropTypes.array,
+    index: PropTypes.number,
+    onRemove: PropTypes.func,
+    onKeyChange: PropTypes.func,
+    onValueChange: PropTypes.func
   }
 
   render () {
-    const { queryParams, index } = this.props
+    const { queryParams, index, onRemove, onKeyChange, onValueChange } = this.props
     return (
-      <li className='columns'>
+      <li className='columns' data-index={index}>
         <button
-          onClick={this.onRemove}>
+          onClick={onRemove}>
           Remove
         </button>
         <input
           className='key-input input column'
           value={queryParams[index][0]}
-          onChange={this.onKeyChange}
+          onChange={onKeyChange}
         />
         <input
           className='value-input input column'
           value={queryParams[index][1]}
-          onChange={this.onValueChange}
+          onChange={onValueChange}
         />
       </li>
     )
   }
 }
 
-export default connect(mapStateToProps)(QueryParam)
+export default connect(mapStateToProps, mapDispatchToProps)(QueryParam)

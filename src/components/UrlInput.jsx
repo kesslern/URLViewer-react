@@ -26,7 +26,7 @@ class URLInput extends React.Component {
       <input
         className='input'
         type='text'
-        placeholder='Enter URL'
+        placeholder='Paste a URL'
         onChange={this.props.urlChange}
         value={this.props.url}/>
     )

@@ -1,4 +1,4 @@
-import UrlParser from './UrlParser'
+import UrlParser from './util/urlParser'
 
 const reducers = {
   'URL INPUT': (state, action) => ({
@@ -6,14 +6,24 @@ const reducers = {
     ...UrlParser.parseUrl(action.url),
     url: action.url
   }),
-  'PARAM INPUT': (state, action) => {
+  'SET PARAM VALUE': (state, action) => {
     let queryParams = [...state.queryParams]
-    queryParams[action.index] = [action.key, action.value]
+    queryParams[action.index] = [queryParams[action.index][0], action.value]
     const url = UrlParser.toString({...state, queryParams})
     return {
       ...state,
-      url,
-      queryParams
+      queryParams,
+      url
+    }
+  },
+  'SET PARAM KEY': (state, action) => {
+    let queryParams = [...state.queryParams]
+    queryParams[action.index] = [action.key, queryParams[action.index][1]]
+    const url = UrlParser.toString({...state, queryParams})
+    return {
+      ...state,
+      queryParams,
+      url
     }
   },
   'PARAM REMOVE': (state, action) => {

@@ -8,37 +8,36 @@ body {
   background: $white-ter;
 }
 
-#app {
+#root {
   padding-top: 2em;
-}
-
-.filter-inputs {
-  input {
-    display: inline-block;
-    width: 50%;
+  .filter-inputs {
+    input {
+      display: inline-block;
+      width: 50%
+    }
   }
-}
+U
+  .columns,.columns:last-child, .columns:not(:last-child) {
+    margin: 0;
+  }
 
-.columns,.columns:last-child, .columns:not(:last-child) {
-  margin: 0;
-}
+  ul {
+    list-style-type: none;
+  }
 
-ul {
-  list-style-type: none;
-}
+  #url-input {
+    transition: ease 1s;
+  }
 
-#url-input {
-  transition: ease 1s;
-}
+  #url-input.empty {
+    margin-top: 15em;
+  }
 
-#url-input.empty {
-  margin-top: 15em;
-}
+  #edit-area {
+    transition: ease 1.1s;
+  }
 
-#edit-area {
-  transition: ease 1.1s;
-}
-
-#edit-area.hidden {
-  opacity: 0;
+  #edit-area.hidden {
+    opacity: 0;
+  }
 }
